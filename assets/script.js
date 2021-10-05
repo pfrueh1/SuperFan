@@ -1,3 +1,6 @@
+userInputEl = document.querySelector("#user-input")
+searchBtnEl = document.querySelector("#search-button")
+resultHeaderEl = document.querySelector("#result-header")
 
 
 function setup() {
@@ -39,9 +42,11 @@ var amazonCard = document.querySelector("#amazon-card")
 
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
+    var userInput = localStorage.getItem("userInput")
+
     var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=ED9EACA8D98946728DDE745B738AC6DA"
     + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
-    + "&search_term=" + "pokemon";
+    + "&search_term=" + userInput;
 
     fetch(apiRainforestUrl)
       // Convert the response to JSON
@@ -55,7 +60,7 @@ var amazonGenerator = function() {
             console.log(data.search_results[0].image)
             
             // clears out html from all "amazon" classes - divs with each card
-            // $(".amazon").html("")
+            $(".amazon").html("")
 
             
 
@@ -132,5 +137,17 @@ var amazonGenerator = function() {
         })
 
 };
+var displayInfo = function(event){
+    event.preventDefault();
+    resultHeaderEl.textContent = ""
 
-amazonGenerator();
+    var searchItem = document.createElement("h3")
+    searchItem.classList = "title-3"
+    searchItem.textContent = userInputEl.value;
+
+    resultHeaderEl.appendChild(searchItem);
+    
+}
+
+
+searchBtnEl.addEventListener("click", displayInfo)
