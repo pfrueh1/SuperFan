@@ -1,3 +1,23 @@
+body {
+    text-align: center;
+}
+
+#product1Image:hover {
+    opacity: 80%;
+}
+
+#product2Image:hover {
+    opacity: 80%;
+}
+
+#product3Image:hover {
+    opacity: 80%;
+}
+
+.hide {
+    display: none;
+}
+
 .hero.has-background {
     position: relative;
     overflow: hidden;
