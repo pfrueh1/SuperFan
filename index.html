@@ -6,58 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Fan!</title>
     
-    <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">    
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- jQuery script needed for modals and dropdowns-->
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/vendor/jquery.min.js">
-    </script>
     
     <!-- Script for mobile responsiveness-->
-    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 <body>
 
-    <header>
-        <h1>Super Fan!</h1>
-    </header>
+<nav id="navbar" class="bd-navbar navbar">SuperFan</nav>
 
     <main>
-        <div id="searchBar" class="row align-center">
-            <label>Search an artist or event to get the latest event information and merchandise!</label>
-            <input type="text" id="userInput" placeholder="Search for your favorite artist/event">
-            <button class="button" id="searchButton">Search</button>
+        <div class="section" id="jumbotron">
+            <h1 class="title">SuperFan</h1>
+            <h2 class="subtitle">
+                Welcome to SuperFan!  Here you can search for your favorite artist, band, performer, or team and get the latest event information, band facts, and merchandise.  
+            </h2>
         </div>
 
+        <div class="section">
+            <div id="search-bar" class="field is-grouped">
+                <!--label class="label">Enter your favorite artist or event!</label-->
+                <div class="control">
+                    <input id="user-input" class="input" type="text" placeHolder="Artist/performer/event">
+                </div>
+                <div class="control">
+                    <button id="search-button" class="button is-link">Submit</button>
+                </div>
+            </div>
+        </div>
 
-        <div class="row" id="searchHeader">
-            <p>Where the artist name should appear after search in H2 tag</p>
+        <div class="section">
+            <h2 class="subtitle" id="search-header">Where the artist name should appear after search in </h2>
+        </div>
+
+        <div class="section">
+            <div class="columns">
+                <div class="column is-full" id="ticketmaster-card">
+                    <p>This is where the Ticketmaster info will go</p>
+                </div>
+            </div>
+            <div class="columns is-desktop">
+                <div class="column is-half" id="amazon-card">
+                    <p>This is where the Amazon info will go</p>
+                </div>
+                <div class="column is-half" id="wiki-card">
+                    <p>This is where the Wikipedia info will go</p>
+                </div>
+            </div>
         </div>
         
-        <div class="row align-center">
-            <div class="callout" id="ticketmasterCard">
-                <p>This is where the ticketmaster info will go</p>
-            </div>
-        </div>
-        <div class="row small-up-1 large-up-2">
-            <div id="amazonCard" class="columns callout">
-                <p>This is where the amazon info will go</p>
-            </div>
-        
-            <div id="wikipediaCard" class="columns callout">This is where the wiki card will go   
-                <p>
-                word: <input id="userinput"value="lizzo"></input> 
-                </p>
-            </div>
-        </div>
     </main> 
     
     <script src="./assets/script.js"></script>
-     <!-- jQuery must be imported before Foundation -->
-    <!--
-        <script src="js/jquery.min.js"></script>
-    -->
+
    </body>
 </html>
