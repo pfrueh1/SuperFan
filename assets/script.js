@@ -1,3 +1,8 @@
+userInputEl = document.querySelector("#user-input")
+searchBtnEl = document.querySelector("#search-button")
+resultHeaderEl = document.querySelector("#result-header")
+
+
 function setup() {
     noCanvas();
     userInput = select('#userinput');
@@ -19,3 +24,18 @@ fetch(api).then(function(response) {
         })
     }
 });
+
+var displayInfo = function(event){
+    event.preventDefault();
+    resultHeaderEl.textContent = ""
+
+    var searchItem = document.createElement("h3")
+    searchItem.classList = "title-3"
+    searchItem.textContent = userInputEl.value;
+
+    resultHeaderEl.appendChild(searchItem);
+    
+}
+
+
+searchBtnEl.addEventListener("click", displayInfo)
