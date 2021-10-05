@@ -1,30 +1,3 @@
-// get value of searchText to use for multiple APIs
-// get value of userinput and create var of searchText
-
-// $("#searchBtn").addEventListener(click, () =>  {
-//     var searchText = $("#searchText").val().trim();
-
-//     // set the key/value pair in localStorage
-//     localStorage.setItem('searchText', searchText);
-    
-//     // get value of searchText from localStorage and use for multiple APIs
-//     var textSearched = localStorage.getItem('searchText')
-    
-//     amazonGenerator(textSearched);
-
-// });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function setup() {
@@ -62,7 +35,7 @@ fetch(api).then(function(response) {
 var product1Card = document.querySelector("#product-1");
 var product2Card = document.querySelector("#product-2");
 var product3Card = document.querySelector("#product-3");
-var amazonCard = document.querySelector("#amazonCard")
+var amazonCard = document.querySelector("#amazon-card")
 
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
