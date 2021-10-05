@@ -62,6 +62,7 @@ fetch(api).then(function(response) {
 var product1Card = document.querySelector("#product-1");
 var product2Card = document.querySelector("#product-2");
 var product3Card = document.querySelector("#product-3");
+var amazonCard = document.querySelector("#amazonCard")
 
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
@@ -86,9 +87,9 @@ var amazonGenerator = function() {
             
 
             // Header for Amazon Section
-            var amazonHeader = document.createElement('h2')
-            amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
-            product1Card.appendChild(amazonHeader);
+            // var amazonHeader = document.createElement('h2')
+            // amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
+            // amazonCard.appendChild(amazonHeader);
 
 
 
