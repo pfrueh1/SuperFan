@@ -10,7 +10,7 @@
  
    
     <title>Super Fan!</title>
-    <link rel="stylesheet" href="./assets/css/foundation.css">
+    <link rel="stylesheet" href="./assets/css/bulma.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 
     
@@ -22,8 +22,9 @@
         <div class="columns">
             <div class="large-8 cell">
                 <label>Search an artist or event to get the latest event information and merchandise!</label>
-                <input type="text" placeholder="Search for your favorite artist/event">
+                <input type="text" placeholder="Search for your favorite artist/event" id="searchText">
             </div>
+            <button type="button" id="searchBtn">Search!</button>
         </div>
     </div>
 
@@ -32,19 +33,19 @@
         <div id="ticketmasterCard" class="callout large-12">This is where the ticketmaster info will go</div>
         
         <!-- Amazon Card Section -->
-        <div id="amazonCard" class="callout large-6">
-            <div id="product-1">
+        <div id="amazonCard" class="amazon columns is-mobile">
+            <div id="product-1" class="amazon column card">
             </div>
-            <div id="product-2">
+            <div id="product-2" class="amazon column card">
             </div>
-            <div id="product-3">
+            <div id="product-3" class ="amazon column card">
             </div>
         </div>
 
 
         <div id="wikipediaCard" class="callout large-6">This is where the wiki card will go   
             <p>
-               word: <input id="userinput"value="lizzo"></input> 
+               word: <input id="userinput" value="lizzo"></input> 
            </p>
     </div>
 
