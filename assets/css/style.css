@@ -13,3 +13,8 @@ body {
 #product3Image:hover {
     opacity: 80%;
 }
+
+.hide {
+    display: none;
+}
+
