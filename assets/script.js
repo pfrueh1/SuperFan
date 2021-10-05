@@ -3,10 +3,15 @@
 //Button click event
 var button = document.querySelector(".button");
 button.addEventListener("click", function(){
-        //Create a new object to interact with the server
+    //Create object for user input
+    var inputValue = document.querySelector(".inputValue");
+    //Create a new object to interact with the server
     var xhr = new XMLHttpRequest();
 
-    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch='Lizzo'";
+    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&songs";
+
+    //Dynamically create elements
+    var wikipediaCardEl = document.querySelector("#wikipediaCard");
 
     // Provide 3 arguments (GET/POST, The URL, Async True/False)
     xhr.open('GET', url, true);
@@ -26,6 +31,17 @@ button.addEventListener("click", function(){
         // Pulling out the titles of each page
         for (var i in data.query.pages) {
             console.log(data.query.pages[i].title);
+            var songTitles = data.query.pages[i].title;
+            //create container for page
+             var pageEl = document.createElement("div");
+             pageEl.classList = "list-item flex-row justify-space-between align-center"
+             //create a span element to hold title
+             var textEl = document.createElement("span");
+             textEl.textContent = songTitles;
+             //append to container
+            pageEl.appendChild(textEl);
+             //append container to DOM
+             wikipediaCardEl.appendChild(pageEl);
         }
     }
     // Send request to the server asynchronously
