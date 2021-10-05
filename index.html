@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperFan!</title>
     <!--Bulma stylesheet-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">    
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" >    
     
     <!-- Script for mobile responsiveness-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -22,29 +22,36 @@
             <img src="./assets/img/logo2.png" alt="SuperFan logo!" width="170" height="50">
             </a>
         
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            </a>
         </div>
-
-        <div class="navbar-menu navbar-end" >
+        
+        <div id="navbar-menu" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-                <a class="navbar-item" href="#ticketmaster-card">
-                    Tickets
-                </a>
-                <a class="navbar-item" href="#amazon-card">
-                    Merch
-                </a>
-                <a class="navbar-item" href="#wiki-card">
-                    Wiki
-                </a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Menu
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/">
+                            Home
+                        </a>
+                        <a class="navbar-item" href="#ticketmaster-card">
+                            Tickets
+                        </a>
+                        <a class="navbar-item" href="#amazon-card">
+                            Merch
+                        </a>
+                        <a class="navbar-item" href="#wiki-card">
+                            Wiki
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        
+        
+           
+        </div>
+    
     </nav>
 
     <!--hero banner-->
@@ -74,7 +81,7 @@
         </div>
 
     <!--searched artist name-->
-        <div class="section">
+        <div class="section pb-0 pt-0">
             <div class="content" id="result-header">
             </div>
         </div>

@@ -2,6 +2,7 @@ userInputEl = document.querySelector("#user-input")
 searchBtnEl = document.querySelector("#search-button")
 resultHeaderEl = document.querySelector("#result-header")
 
+
 function setup() {
     noCanvas();
     userInput = select('#userinput');
