@@ -1,16 +1,17 @@
 //Start Wiki-card Javascript
-var wikipediaCardEl = document.querySelector("#wikipedia-card");
+var wikipediaCardEl = document.querySelector("#wiki-card");
 
 //Button click event
-var button = document.querySelector(".button");
-button.addEventListener("click", function(){
-    wikipediaCardEl.innerHTML = ""
+
+// var button = document.querySelector(".button");
+var wiki = function(){
+    wikipediaCardEl.innerHTML = "";
     //Create object for user input
     var inputValue = document.querySelector("#user-input");
     //Create a new object to interact with the server
     var xhr = new XMLHttpRequest();
 
-    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&songs";
+    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&hits";
 
     //Dynamically create elements
     
@@ -46,25 +47,80 @@ button.addEventListener("click", function(){
              //append container to DOM
              wikipediaCardEl.appendChild(pageEl);
         }
-    }
+       }
     // Send request to the server asynchronously
     xhr.send();
-})
+}
 
 //End Wiki-card Javascript
+  
+let searchBtn = document.querySelector('#search-button');
+let ticketMasterCard = document.querySelector('#ticketmaster-card');
+
+// search button element section
+userInputEl = document.querySelector("#user-input")
+resultHeaderEl = document.querySelector("#result-header")
 
 
-const api = 'https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&keyword=lizzo&apikey=yBLp8jR0zVL83KhDCYm0hsP4ydR9aG2w';
+// function for populating the concerts box
+function getTicketMaster() {
+    let userInput = document.querySelector("#user-input").value.trim();
+    const api = 'https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&keyword=' + userInput +'&apikey=yBLp8jR0zVL83KhDCYm0hsP4ydR9aG2w';
 
-fetch(api).then(function(response) {
-    if (response.ok) {
-        response.json().then(function(data) {
 
-            console.log(data);
 
-        })
-    }
-});
+    fetch(api).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                //clear previous search results
+                ticketMasterCard.innerHTML = "";
+
+                //function for creating event cards
+                function makeCard(i) {
+                        let concertInfoEl = document.createElement("div");
+                        ticketMasterCard.appendChild(concertInfoEl);
+                        let concertTitleEl = document.createElement("h3");
+                        concertTitleEl.textContent = data._embedded.events[i].name;
+                        concertInfoEl.appendChild(concertTitleEl);
+                        let concertDateEl = document.createElement("p");
+                        concertDateEl.textContent = data._embedded.events[i].dates.start.localDate;
+                        concertInfoEl.appendChild(concertDateEl);
+                        let venueEl = document.createElement("p");
+                        venueEl.textContent = data._embedded.events[i]._embedded.venues[0].name;
+                        concertInfoEl.appendChild(venueEl);
+                        let cityEl = document.createElement("p");
+                        cityEl.textContent = data._embedded.events[i]._embedded.venues[0].city.name;
+                        concertInfoEl.appendChild(cityEl);
+                        // let ticketEl = document.createElement()
+                };
+                 console.log('data', data);
+                // check if there are more than 5 events
+                if (!data.hasOwnProperty("_embedded")) {
+                    // if no upcoming events, inform user
+                    ticketMasterCard.textContent = "No upcomming shows for selected artist"
+                }else if (data._embedded.events.length <= 5) {
+                    //if less than 5 events, generate a card for each event
+                    for (let i = 0; i < data._embedded.events.length; i++){
+                        makeCard(i);
+                    }
+                }else {
+                    //if more than 5 events, generate cards for the 1st 5
+                    for (let i = 0; i < 5; i++){
+                        makeCard(i);                        
+                    }
+                }
+                console.log("input", userInput)
+               
+            })
+        }
+    });
+};
+
+
+
+
+    
+
 
 
 
@@ -83,9 +139,10 @@ var amazonCard = document.querySelector("#amazon-card")
 
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
-    var userInput = localStorage.getItem("userInput")
 
-    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=ED9EACA8D98946728DDE745B738AC6DA"
+    let userInput = document.querySelector("#user-input").value.trim();
+
+    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=416C99C5B4A74955BEB47FF0374F50CA"
     + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
     + "&search_term=" + userInput;
 
@@ -113,7 +170,7 @@ var amazonGenerator = function() {
 
 
             // Product 1 Card
-            var product1Title = document.createElement('p');
+            var product1Title = document.createElement('div');
             product1Title.innerHTML = data.search_results[0].title;
             product1Title.setAttribute("class", "card-header");
             product1Card.appendChild(product1Title);
@@ -127,10 +184,13 @@ var amazonGenerator = function() {
             };
             product1Card.appendChild(product1Image);
 
-            var product1Price = document.createElement('p');
-            product1Price.innerHTML = data.search_results[0].price.raw;
-            product1Price.setAttribute("class", "card-content");
-            product1Card.appendChild(product1Price);
+            if (data.hasOwnProperty("price.raw")) {
+                var product1Price = document.createElement('div');
+                product1Price.innerHTML = data.search_results[0].price.raw;
+                product1Price.setAttribute("class", "card-content");
+                product1Card.appendChild(product1Price);
+            }
+            
 
 
 
@@ -149,10 +209,12 @@ var amazonGenerator = function() {
             };
             product2Card.appendChild(product2Image);
             
-            var product2Price = document.createElement('p');
-            product2Price.innerHTML = data.search_results[1].price.raw;
-            product2Price.setAttribute("class", "card-content");
-            product2Card.appendChild(product2Price);
+            if (data.hasOwnProperty("price.raw")) {
+                var product2Price = document.createElement('div');
+                product2Price.innerHTML = data.search_results[1].price.raw;
+                product2Price.setAttribute("class", "card-content");
+                product2Card.appendChild(product2Price);
+            }
 
 
 
@@ -170,16 +232,20 @@ var amazonGenerator = function() {
                 window.open(data.search_results[2].link, "_blank" );
             };
             product3Card.appendChild(product3Image);
+            
+            if (data.hasOwnProperty("price.raw")) {
+                var product3Price = document.createElement('div');
+                product3Price.innerHTML = data.search_results[2].price.raw;
+                product3Price.setAttribute("class", "card-content");
+                product3Card.appendChild(product3Price);
+            }
 
-            var product3Price = document.createElement('p');
-            product3Price.innerHTML = data.search_results[2].price.raw;
-            product3Price.setAttribute("class", "card-content");
-            product3Card.appendChild(product3Price);
         })
 
 };
+
 var displayInfo = function(event){
-    event.preventDefault();
+    // event.preventDefault();
     resultHeaderEl.textContent = ""
 
     var searchItem = document.createElement("h3")
@@ -190,5 +256,15 @@ var displayInfo = function(event){
     
 }
 
+searchBtn.addEventListener('click', function(){
+    displayInfo();
+    getTicketMaster();
+    amazonGenerator();
+    wiki();
+})
 
-searchBtnEl.addEventListener("click", displayInfo)
+
+// searchBtn.addEventListener("click", function() {
+//     displayInfo() 
+//     amazonGenerator()
+// });
