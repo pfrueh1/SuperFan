@@ -1,28 +1,12 @@
 let searchBtn = document.querySelector('#search-button');
 let ticketMasterCard = document.querySelector('#ticketmaster-card');
-// function setup() {
-//     noCanvas();
-//     userInput = select('#userinput');
-//     userInput.changed(goWiki);
-userInputEl = document.querySelector("#user-input")
-searchBtnEl = document.querySelector("#search-button")
-resultHeaderEl = document.querySelector("#result-header")
-
-
-function setup() {
-    noCanvas();
-    userInput = select('#userinput');
-    userInput.changed(goWiki);
-
-//     function goWiki() {
-//         let term = userInput.value();
-//         console.log(term);
-//     }
-// }
+userInputEl = document.querySelector("#user-input");
+// searchBtnEl = document.querySelector("#search-button");
+resultHeaderEl = document.querySelector("#result-header");
 
 // function for populating the concerts box
 function getTicketMaster() {
-    let userInput = document.querySelector("#userInput").value.trim();
+    let userInput = document.querySelector("#user-input").value.trim();
     const api = 'https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&keyword=' + userInput +'&apikey=yBLp8jR0zVL83KhDCYm0hsP4ydR9aG2w';
 
 
@@ -49,7 +33,7 @@ function getTicketMaster() {
                         let cityEl = document.createElement("p");
                         cityEl.textContent = data._embedded.events[i]._embedded.venues[0].city.name;
                         concertInfoEl.appendChild(cityEl);
-                        let ticketEl = document.createElement()
+                        // let ticketEl = document.createElement()
                 };
                  console.log('data', data);
                 // check if there are more than 5 events
@@ -73,12 +57,11 @@ function getTicketMaster() {
         }
     });
 };
+
 searchBtn.addEventListener('click', function(){
     getTicketMaster();
 })
-        })
-    }
-});
+
 
 
 
@@ -205,4 +188,4 @@ var displayInfo = function(event){
 }
 
 
-searchBtnEl.addEventListener("click", displayInfo)
+// searchBtnEl.addEventListener("click", displayInfo)
