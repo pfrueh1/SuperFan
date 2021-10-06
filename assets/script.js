@@ -46,6 +46,10 @@ button.addEventListener("click", function(){
              //append container to DOM
              wikipediaCardEl.appendChild(pageEl);
         }
+userInputEl = document.querySelector("#user-input")
+searchBtnEl = document.querySelector("#search-button")
+resultHeaderEl = document.querySelector("#result-header")
+
     }
     // Send request to the server asynchronously
     xhr.send();
