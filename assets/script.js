@@ -4,9 +4,9 @@ let ticketMasterCard = document.querySelector('#ticketmaster-card');
 //     noCanvas();
 //     userInput = select('#userinput');
 //     userInput.changed(goWiki);
-userInputEl = document.querySelector("#user-input")
-searchBtnEl = document.querySelector("#search-button")
-resultHeaderEl = document.querySelector("#result-header")
+let userInputEl = document.querySelector("#user-input")
+let searchBtnEl = document.querySelector("#search-button")
+let resultHeaderEl = document.querySelector("#result-header")
 
 
 function setup() {
@@ -99,7 +99,7 @@ var amazonCard = document.querySelector("#amazon-card")
 var amazonGenerator = function() {
     var userInput = localStorage.getItem("userInput")
 
-    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=ED9EACA8D98946728DDE745B738AC6DA"
+    var apiRainforestUrl = "https://api.rainforest.com/request?api_key=ED9EACA8D98946728DDE745B738AC6DA"
     + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
     + "&search_term=" + userInput;
 
