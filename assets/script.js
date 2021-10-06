@@ -21,19 +21,31 @@ function getTicketMaster() {
     fetch(api).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                //clear previous search
+                //clear previous search results
                 ticketMasterCard.innerHTML = "";
 
-                    //function for creating event cards
+                //function for creating event cards
                 function makeCard(i) {
                         let concertInfoEl = document.createElement("div");
                         ticketMasterCard.appendChild(concertInfoEl);
                         let concertTitleEl = document.createElement("h3");
                         concertTitleEl.textContent = data._embedded.events[i].name;
                         concertInfoEl.appendChild(concertTitleEl);
+                        let concertDateEl = document.createElement("p");
+                        concertDateEl.textContent = data._embedded.events[i].dates.start.localDate;
+                        concertInfoEl.appendChild(concertDateEl);
+                        let venueEl = document.createElement("p");
+                        venueEl.textContent = data._embedded.events[i]._embedded.venues[0].name;
+                        concertInfoEl.appendChild(venueEl);
+                        let cityEl = document.createElement("p");
+                        cityEl.textContent = data._embedded.events[i]._embedded.venues[0].city.name;
+                        concertInfoEl.appendChild(cityEl);
+                        let ticketEl = document.createElement()
                 };
+                 console.log('data', data);
                 // check if there are more than 5 events
-                if (data._embedded.events.length === 0) {
+                if (!data.hasOwnProperty("_embedded")) {
+                    // if no upcoming events, inform user
                     ticketMasterCard.textContent = "No upcomming shows for selected artist"
                 }else if (data._embedded.events.length <= 5) {
                     //if less than 5 events, generate a card for each event
@@ -41,19 +53,17 @@ function getTicketMaster() {
                         makeCard(i);
                     }
                 }else {
+                    //if more than 5 events, generate cards for the 1st 5
                     for (let i = 0; i < 5; i++){
                         makeCard(i);                        
                     }
                 }
-                
-                // ticketMasterCard.textContent = data._embedded.events[0]._embedded.attractions[0].name
                 console.log("input", userInput)
-                console.log('data', data);
-
+               
             })
         }
     });
-}
+};
 searchBtn.addEventListener('click', function(){
     getTicketMaster();
 })
