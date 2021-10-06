@@ -201,8 +201,9 @@ var displayInfo = function(event){
     
 }
 
+// commented out amazonGenerator until Thursday before Presentation 
 searchBtn.addEventListener('click', function(){
     displayInfo();
     getTicketMaster();
-    amazonGenerator();
+    // amazonGenerator();
 })
