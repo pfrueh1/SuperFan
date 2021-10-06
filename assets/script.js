@@ -1,8 +1,10 @@
 let searchBtn = document.querySelector('#search-button');
 let ticketMasterCard = document.querySelector('#ticketmaster-card');
-userInputEl = document.querySelector("#user-input");
-// searchBtnEl = document.querySelector("#search-button");
-resultHeaderEl = document.querySelector("#result-header");
+
+// search button element section
+userInputEl = document.querySelector("#user-input")
+resultHeaderEl = document.querySelector("#result-header")
+
 
 // function for populating the concerts box
 function getTicketMaster() {
@@ -58,9 +60,10 @@ function getTicketMaster() {
     });
 };
 
-searchBtn.addEventListener('click', function(){
-    getTicketMaster();
-})
+
+
+
+    
 
 
 
@@ -80,7 +83,8 @@ var amazonCard = document.querySelector("#amazon-card")
 
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
-    var userInput = localStorage.getItem("userInput")
+
+    let userInput = document.querySelector("#user-input").value.trim();
 
     var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=ED9EACA8D98946728DDE745B738AC6DA"
     + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
@@ -110,7 +114,7 @@ var amazonGenerator = function() {
 
 
             // Product 1 Card
-            var product1Title = document.createElement('p');
+            var product1Title = document.createElement('div');
             product1Title.innerHTML = data.search_results[0].title;
             product1Title.setAttribute("class", "card-header");
             product1Card.appendChild(product1Title);
@@ -124,10 +128,13 @@ var amazonGenerator = function() {
             };
             product1Card.appendChild(product1Image);
 
-            var product1Price = document.createElement('p');
-            product1Price.innerHTML = data.search_results[0].price.raw;
-            product1Price.setAttribute("class", "card-content");
-            product1Card.appendChild(product1Price);
+            if (data.hasOwnProperty("price.raw")) {
+                var product1Price = document.createElement('div');
+                product1Price.innerHTML = data.search_results[0].price.raw;
+                product1Price.setAttribute("class", "card-content");
+                product1Card.appendChild(product1Price);
+            }
+            
 
 
 
@@ -146,10 +153,12 @@ var amazonGenerator = function() {
             };
             product2Card.appendChild(product2Image);
             
-            var product2Price = document.createElement('p');
-            product2Price.innerHTML = data.search_results[1].price.raw;
-            product2Price.setAttribute("class", "card-content");
-            product2Card.appendChild(product2Price);
+            if (data.hasOwnProperty("price.raw")) {
+                var product2Price = document.createElement('div');
+                product2Price.innerHTML = data.search_results[1].price.raw;
+                product2Price.setAttribute("class", "card-content");
+                product2Card.appendChild(product2Price);
+            }
 
 
 
@@ -167,16 +176,20 @@ var amazonGenerator = function() {
                 window.open(data.search_results[2].link, "_blank" );
             };
             product3Card.appendChild(product3Image);
+            
+            if (data.hasOwnProperty("price.raw")) {
+                var product3Price = document.createElement('div');
+                product3Price.innerHTML = data.search_results[2].price.raw;
+                product3Price.setAttribute("class", "card-content");
+                product3Card.appendChild(product3Price);
+            }
 
-            var product3Price = document.createElement('p');
-            product3Price.innerHTML = data.search_results[2].price.raw;
-            product3Price.setAttribute("class", "card-content");
-            product3Card.appendChild(product3Price);
         })
 
 };
+
 var displayInfo = function(event){
-    event.preventDefault();
+    // event.preventDefault();
     resultHeaderEl.textContent = ""
 
     var searchItem = document.createElement("h3")
@@ -187,5 +200,14 @@ var displayInfo = function(event){
     
 }
 
+searchBtn.addEventListener('click', function(){
+    displayInfo();
+    getTicketMaster();
+    amazonGenerator();
+})
 
-// searchBtnEl.addEventListener("click", displayInfo)
+
+// searchBtn.addEventListener("click", function() {
+//     displayInfo() 
+//     amazonGenerator()
+// });
