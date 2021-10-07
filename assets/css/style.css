@@ -18,6 +18,10 @@ body {
     display: none;
 }
 
+#search-bar {
+    margin: auto
+}
+
 .hero.has-background {
     position: relative;
     overflow: hidden;

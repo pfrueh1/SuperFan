@@ -46,7 +46,7 @@
                             Merch
                         </a>
                         <a class="navbar-item" href="#wiki-card">
-                            Wiki
+                            Top Hits
                         </a>
                     </div>
                 </div>
@@ -76,22 +76,25 @@
     <!-- search bar-->
         <div class="section p-0">
             <div class="columns is-vcentered">
-                <div class="column is-half">
+                <div class="column is-half p-0">
                     <div class="section">
-                        <div id="search-bar" class="field is-grouped">
-                            <div class="control">
-                                <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+                        <div class="columns is-centered">
+                            <div id="search-bar" class="field is-centered">
+                                <div class="control">
+                                    <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+                                </div>
+                                <div class="control pt-3">
+                                    <button id="search-button" class="button is-dark is-medium">Search</button>
+                                </div>
                             </div>
-                            <div class="control">
-                                <button id="search-button" class="button is-dark is-medium">Search</button>
-                            </div>
-                            <div class="control">
-                                <button id="favorite-button" class="button is-dark is-medium">Save to Favorites</button>
-                            </div>
+                        </div>
+
+                        <div class="control">
+                            <button id="favorite-button" class="button is-dark is-medium">Save to Favorites</button>
                         </div>
                     </div>
                 </div>
-                <div class="column is-half">
+                <div class="column is-half p-0">
                     <div class="dropdown is-hoverable">
                         <div class="dropdown-trigger">
                             <button class="button is-dark is-medium" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -111,7 +114,7 @@
         </div>
 
     <!--searched artist name-->
-        <div class="section pb-0 pt-0">
+        <div class="section pb-0">
             <div class="content" id="result-header">
             </div>
         </div>

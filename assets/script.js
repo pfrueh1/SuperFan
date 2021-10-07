@@ -262,7 +262,7 @@ var displayHeader = function(event){
 //save favorites to local storage and to drop down
 var favoritesArray = []                                                           
 var favoritesEl = document.querySelector("#favorites")
-var favoriteBtn = document.querySelector("#favorite-button")
+var favoriteBtn = document.querySelector("#favorite-button") 
 
 var saveSearch = function() {
     localStorage.setItem("favoritesArray", JSON.stringify(favoritesArray))
@@ -274,7 +274,7 @@ var favoriteAdd = function(favoriteAdd){
     var favoriteLineBtn = document.createElement("button");
     favoriteLineBtn.textContent = userInputEl.value;
     favoriteLineBtn.classList = "button is-medium is-fullwidth";
-    favoriteLineBtn.setAttribute("favorite-item", favoriteAdd); 
+    favoriteLineBtn.setAttribute("favorite-item", userInputEl.value); 
     favoriteLineBtn.setAttribute("type", "submit");
 
     favoriteLine.appendChild(favoriteLineBtn)
@@ -288,21 +288,24 @@ searchBtn.addEventListener('click', function(){
     wiki();
 })
 
+
+// add items to favorites list
 favoriteBtn.addEventListener('click', function(){
     saveSearch();
     favoriteAdd();
+    userInputEl.value = "";
 })
 
+// search for item on favorites list
+var favoriteSearchHandler = function(event) {
+    var favoriteSearchItem = event.target.getAttribute("favorite-item")
+    userInputEl.value = favoriteSearchItem
+    displayHeader();
+    getTicketMaster();
+//  amazonGenerator(favoriteSearchItem);
+    wiki();    
+    userInputEl.value = "";
+}
 
-//var favoriteSearchHandler = function(event) {
-//    event.preventDefault();
-//    var favoriteSearchItem = event.target.getAttribute("favorite-item")
-//    if (favoriteSearchItem) {
-//        displayHeader(favoriteSearchItem);
-//        getTicketMaster(favoriteSearchItem);
-//    //    amazonGenerator(previousSearchItem);
-//        wiki(favoriteSearchItem);
-//    }
-//}
-//
-//favoritesEl.addEventListener("click", favoriteSearchHandler)
+
+favoritesEl.addEventListener("click", favoriteSearchHandler);
