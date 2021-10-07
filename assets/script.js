@@ -1,3 +1,59 @@
+//Start Wiki-card Javascript
+var wikipediaCardEl = document.querySelector("#wiki-card");
+
+//Button click event
+
+// var button = document.querySelector(".button");
+var wiki = function(){
+    wikipediaCardEl.innerHTML = "";
+    //Create object for user input
+    var inputValue = document.querySelector("#user-input");
+    //Create a new object to interact with the server
+    var xhr = new XMLHttpRequest();
+
+    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&hits";
+
+    //Dynamically create elements
+    
+
+
+    // Provide 3 arguments (GET/POST, The URL, Async True/False)
+    xhr.open('GET', url, true);
+
+    // Once request has loaded...
+    xhr.onload = function() {
+        // Parse the request into JSON
+        var data = JSON.parse(this.response);
+
+        // Log the data object
+        console.log(data);
+
+        // Log the page objects
+        console.log(data.query.pages)
+
+        // Loop through the data object
+        // Pulling out the titles of each page
+        for (var i in data.query.pages) {
+            console.log(data.query.pages[i].title);
+            var songTitles = data.query.pages[i].title;
+            //create container for page
+             var pageEl = document.createElement("div");
+             pageEl.classList = "list-item flex-row justify-space-between align-center"
+             //create a span element to hold title
+             var textEl = document.createElement("span");
+             textEl.textContent = songTitles;
+             //append to container
+            pageEl.appendChild(textEl);
+             //append container to DOM
+             wikipediaCardEl.appendChild(pageEl);
+        }
+       }
+    // Send request to the server asynchronously
+    xhr.send();
+}
+
+//End Wiki-card Javascript
+  
 let searchBtn = document.querySelector('#search-button');
 let ticketMasterCard = document.querySelector('#ticketmaster-card');
 
@@ -41,7 +97,7 @@ function getTicketMaster() {
                 // check if there are more than 5 events
                 if (!data.hasOwnProperty("_embedded")) {
                     // if no upcoming events, inform user
-                    ticketMasterCard.textContent = "No upcoming shows for selected artist"
+                    ticketMasterCard.textContent = "No upcomming shows for selected artist"
                 }else if (data._embedded.events.length <= 5) {
                     //if less than 5 events, generate a card for each event
                     for (let i = 0; i < data._embedded.events.length; i++){
@@ -74,136 +130,182 @@ function getTicketMaster() {
 
 
 
+//
+//// Amazon Card Section
+//var product1Card = document.querySelector("#product-1");
+//var product2Card = document.querySelector("#product-2");
+//var product3Card = document.querySelector("#product-3");
+//var amazonCard = document.querySelector("#amazon-card")
+//
+//// Amazon Generator Function to create Amazon Product Cards
+//var amazonGenerator = function() {
+//
+//    let userInput = document.querySelector("#user-input").value.trim();
+//
+//    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=416C99C5B4A74955BEB47FF0374F50CA"
+//    + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
+//    + "&search_term=" + userInput;
+//
+//    fetch(apiRainforestUrl)
+//      // Convert the response to JSON
+//      .then(function(response) {
+//        return response.json();
+//      })
+//        .then(function(data) {
+//            //console log to test getting correct data
+//            console.log(data)
+//            console.log(data.search_results[0].title)
+//            console.log(data.search_results[0].image)
+//            
+//            // clears out html from all "amazon" classes - divs with each card
+//            $(".amazon").html("")
+//
+//            
+//
+//            // Header for Amazon Section
+//            // var amazonHeader = document.createElement('h2')
+//            // amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
+//            // amazonCard.appendChild(amazonHeader);
+//
+//
+//
+//            // Product 1 Card
+//            var product1Title = document.createElement('div');
+//            product1Title.innerHTML = data.search_results[0].title;
+//            product1Title.setAttribute("class", "card-header");
+//            product1Card.appendChild(product1Title);
+//
+//            var product1Image = document.createElement('img');
+//            product1Image.setAttribute("id", "product1Image");
+//            product1Image.setAttribute("class", "card-image");
+//            product1Image.src = data.search_results[0].image;
+//            product1Image.onclick = function() {
+//                window.open(data.search_results[0].link, "_blank" );
+//            };
+//            product1Card.appendChild(product1Image);
+//
+//            if (data.hasOwnProperty("price.raw")) {
+//                var product1Price = document.createElement('div');
+//                product1Price.innerHTML = data.search_results[0].price.raw;
+//                product1Price.setAttribute("class", "card-content");
+//                product1Card.appendChild(product1Price);
+//            }
+//            
+//
+//
+//
+//            // Product 2 Card
+//            var product2Title = document.createElement('p');
+//            product2Title.setAttribute("class", "card-header");
+//            product2Title.innerHTML = data.search_results[1].title;
+//            product2Card.appendChild(product2Title);
+//
+//            var product2Image = document.createElement('img');
+//            product2Image.setAttribute("id", "product2Image");
+//            product2Image.setAttribute("class", "card-image");
+//            product2Image.src = data.search_results[1].image;
+//            product2Image.onclick = function() {
+//                window.open(data.search_results[1].link, "_blank" );
+//            };
+//            product2Card.appendChild(product2Image);
+//            
+//            if (data.hasOwnProperty("price.raw")) {
+//                var product2Price = document.createElement('div');
+//                product2Price.innerHTML = data.search_results[1].price.raw;
+//                product2Price.setAttribute("class", "card-content");
+//                product2Card.appendChild(product2Price);
+//            }
+//
+//
+//
+//            // Product 3 Card
+//            var product3Title = document.createElement('p');
+//            product3Title.setAttribute("class", "card-header");
+//            product3Title.innerHTML = data.search_results[2].title;
+//            product3Card.appendChild(product3Title);
+//
+//            var product3Image = document.createElement('img');
+//            product3Image.setAttribute("id", "product3Image");
+//            product3Image.setAttribute("class", "card-image");
+//            product3Image.src = data.search_results[2].image;
+//            product3Image.onclick = function() {
+//                window.open(data.search_results[2].link, "_blank" );
+//            };
+//            product3Card.appendChild(product3Image);
+//            
+//            if (data.hasOwnProperty("price.raw")) {
+//                var product3Price = document.createElement('div');
+//                product3Price.innerHTML = data.search_results[2].price.raw;
+//                product3Price.setAttribute("class", "card-content");
+//                product3Card.appendChild(product3Price);
+//            }
+//
+//        })
+//
+//};
+//
+// End of Amazon card java
 
-// Amazon Card Section
-var product1Card = document.querySelector("#product-1");
-var product2Card = document.querySelector("#product-2");
-var product3Card = document.querySelector("#product-3");
-var amazonCard = document.querySelector("#amazon-card")
+//display header with user input
 
-// Amazon Generator Function to create Amazon Product Cards
-var amazonGenerator = function() {
-
-    let userInput = document.querySelector("#user-input").value.trim();
-
-    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=416C99C5B4A74955BEB47FF0374F50CA"
-    + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
-    + "&search_term=" + userInput;
-
-    fetch(apiRainforestUrl)
-      // Convert the response to JSON
-      .then(function(response) {
-        return response.json();
-      })
-        .then(function(data) {
-            //console log to test getting correct data
-            console.log(data)
-            console.log(data.search_results[0].title)
-            console.log(data.search_results[0].image)
-            
-            // clears out html from all "amazon" classes - divs with each card
-            $(".amazon").html("")
-
-            // Product 1 Card
-            var product1Title = document.createElement('p');
-            product1Title.innerHTML = data.search_results[0].title;
-            product1Title.setAttribute("class", "card-header");
-            product1Card.appendChild(product1Title);
-
-            var product1Image = document.createElement('img');
-            product1Image.setAttribute("id", "product1Image");
-            product1Image.setAttribute("class", "card-image");
-            product1Image.src = data.search_results[0].image;
-            product1Image.onclick = function() {
-                window.open(data.search_results[0].link, "_blank" );
-            };
-            product1Card.appendChild(product1Image);
-
-            if (data.hasOwnProperty("search_results[0].price.raw")) {
-                var product1Price = document.createElement('p');
-                product1Price.innerHTML = data.search_results[0].price.raw;
-                product1Price.setAttribute("class", "card-content");
-                product1Card.appendChild(product1Price);
-            } 
-            // else {
-            //     var product1NoPrice = document.createElement('p');
-            //     product1NoPrice.textContent = "Price Not Available"
-            //     product1NoPrice.setAttribute("class", "card-content");
-            //     product1Card.appendChild(product1NoPrice);
-            // }
-
-            // Product 2 Card
-            var product2Title = document.createElement('p');
-            product2Title.setAttribute("class", "card-header");
-            product2Title.innerHTML = data.search_results[1].title;
-            product2Card.appendChild(product2Title);
-
-            var product2Image = document.createElement('img');
-            product2Image.setAttribute("id", "product2Image");
-            product2Image.setAttribute("class", "card-image");
-            product2Image.src = data.search_results[1].image;
-            product2Image.onclick = function() {
-                window.open(data.search_results[1].link, "_blank" );
-            };
-            product2Card.appendChild(product2Image);
-            
-            if (data.hasOwnProperty("search_results[1].price.raw")) {
-                var product2Price = document.createElement('p');
-                product2Price.innerHTML = data.search_results[1].price.raw;
-                product2Price.setAttribute("class", "card-content");
-                product2Card.appendChild(product2Price);
-            } 
-            // else {
-            //     var product2NoPrice = document.createElement('p');
-            //     product2NoPrice.textContent = "Price Not Available"
-            //     product2NoPrice.setAttribute("class", "card-content");
-            //     product2Card.appendChild(product2NoPrice);
-            // }
-
-            // Product 3 Card
-            var product3Title = document.createElement('p');
-            product3Title.setAttribute("class", "card-header");
-            product3Title.innerHTML = data.search_results[2].title;
-            product3Card.appendChild(product3Title);
-
-            var product3Image = document.createElement('img');
-            product3Image.setAttribute("id", "product3Image");
-            product3Image.setAttribute("class", "card-image");
-            product3Image.src = data.search_results[2].image;
-            product3Image.onclick = function() {
-                window.open(data.search_results[2].link, "_blank" );
-            };
-            product3Card.appendChild(product3Image);
-            
-            if (data.hasOwnProperty("search_results[2].price.raw")) {
-                var product3Price = document.createElement('p');
-                product3Price.innerHTML = data.search_results[2].price.raw;
-                product3Price.setAttribute("class", "card-content");
-                product3Card.appendChild(product3Price);
-            } 
-            // else {
-            //     var product3NoPrice = document.createElement('p');
-            //     product3NoPrice.textContent = "Price Not Available"
-            //     product3NoPrice.setAttribute("class", "card-content");
-            //     product3Card.appendChild(product3NoPrice);
-            // }
-        })
-};
-
-var displayInfo = function(event){
-    // event.preventDefault();
+var displayHeader = function(event){
     resultHeaderEl.textContent = ""
 
     var searchItem = document.createElement("h3")
     searchItem.classList = "title-3"
     searchItem.textContent = userInputEl.value;
+
     resultHeaderEl.appendChild(searchItem);
     
 }
 
-// commented out amazonGenerator until Thursday before Presentation 
+//save favorites to local storage and to drop down
+var favoritesArray = []                                                           
+var favoritesEl = document.querySelector("#favorites")
+var favoriteBtn = document.querySelector("#favorite-button") 
+
+var saveSearch = function() {
+    localStorage.setItem("favoritesArray", JSON.stringify(favoritesArray))
+};
+
+var favoriteAdd = function(favoriteAdd){
+
+    var favoriteLine = document.createElement("div")
+    var favoriteLineBtn = document.createElement("button");
+    favoriteLineBtn.textContent = userInputEl.value;
+    favoriteLineBtn.classList = "button is-medium is-fullwidth";
+    favoriteLineBtn.setAttribute("favorite-item", userInputEl.value); 
+    favoriteLineBtn.setAttribute("type", "submit");
+
+    favoriteLine.appendChild(favoriteLineBtn)
+    favoritesEl.prepend(favoriteLine);
+    }
+
 searchBtn.addEventListener('click', function(){
-    displayInfo();
+    displayHeader();
     getTicketMaster();
-    // amazonGenerator();
+//    amazonGenerator();
+    wiki();
 })
+
+
+// add items to favorites list
+favoriteBtn.addEventListener('click', function(){
+    saveSearch();
+    favoriteAdd();
+    userInputEl.value = "";
+})
+
+// search for item on favorites list
+var favoriteSearchHandler = function(event) {
+    var favoriteSearchItem = event.target.getAttribute("favorite-item")
+    userInputEl.value = favoriteSearchItem
+    displayHeader();
+    getTicketMaster();
+//  amazonGenerator(favoriteSearchItem);
+    wiki();    
+    userInputEl.value = "";
+}
+
+
+favoritesEl.addEventListener("click", favoriteSearchHandler);
