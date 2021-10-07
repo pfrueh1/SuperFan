@@ -74,16 +74,35 @@
         </div>
 
     <!-- search bar-->
-        <div class="section">
-            <div id="search-bar" class="field is-grouped">
-                <div class="control">
-                    <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+        <div class="columns pt-2">
+            <div class="column is-half">
+                <div class="section">
+                    <div id="search-bar" class="field is-grouped">
+                        <div class="control">
+                            <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+                        </div>
+                        <div class="control">
+                            <button id="search-button" class="button is-dark is-medium">Submit</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="control">
-                    <button id="search-button" class="button is-dark is-medium">Submit</button>
+            </div>
+            <div class="column is-half">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title is-centered">
+                            Previous Searches
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content" id="previous-searches">
+                            <p>This is where the previous searches will go</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
 
     <!--searched artist name-->
         <div class="section pb-0 pt-0">
@@ -97,13 +116,12 @@
                 <div class="column is-full">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
+                            <p class="card-header-title is-centered">
                                 Tickets
                             </p>
                         </header>
                         <div class="card-content">
                             <div class="content" id="ticketmaster-card">
-                            <p>This is where the Ticketmaster info will go</p>
                             </div>
                         </div>
                     </div>
@@ -115,7 +133,7 @@
                 <div class="column is-half">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
+                            <p class="card-header-title is-centered">
                                 Merch
                             </p>
                         </header>
@@ -135,13 +153,12 @@
                 <div class="column is-half">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
-                               Wiki
+                            <p class="card-header-title is-centered">
+                               Top Hits
                             </p>
                         </header>
                         <div class="card-content">
                             <div class="content" id="wiki-card">
-                            <p>This is where the Wiki info will go</p>
                             </div>
                         </div>
                     </div>
