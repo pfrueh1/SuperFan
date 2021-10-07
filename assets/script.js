@@ -41,7 +41,7 @@ function getTicketMaster() {
                 // check if there are more than 5 events
                 if (!data.hasOwnProperty("_embedded")) {
                     // if no upcoming events, inform user
-                    ticketMasterCard.textContent = "No upcomming shows for selected artist"
+                    ticketMasterCard.textContent = "No upcoming shows for selected artist"
                 }else if (data._embedded.events.length <= 5) {
                     //if less than 5 events, generate a card for each event
                     for (let i = 0; i < data._embedded.events.length; i++){
@@ -86,7 +86,7 @@ var amazonGenerator = function() {
 
     let userInput = document.querySelector("#user-input").value.trim();
 
-    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=ED9EACA8D98946728DDE745B738AC6DA"
+    var apiRainforestUrl = "https://api.rainforestapi.com/request?api_key=416C99C5B4A74955BEB47FF0374F50CA"
     + "&type=search&amazon_domain=amazon.com&output=json&language=en_US"
     + "&search_term=" + userInput;
 
@@ -104,17 +104,8 @@ var amazonGenerator = function() {
             // clears out html from all "amazon" classes - divs with each card
             $(".amazon").html("")
 
-            
-
-            // Header for Amazon Section
-            // var amazonHeader = document.createElement('h2')
-            // amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
-            // amazonCard.appendChild(amazonHeader);
-
-
-
             // Product 1 Card
-            var product1Title = document.createElement('div');
+            var product1Title = document.createElement('p');
             product1Title.innerHTML = data.search_results[0].title;
             product1Title.setAttribute("class", "card-header");
             product1Card.appendChild(product1Title);
@@ -128,15 +119,18 @@ var amazonGenerator = function() {
             };
             product1Card.appendChild(product1Image);
 
-            if (data.hasOwnProperty("price.raw")) {
-                var product1Price = document.createElement('div');
+            if (data.hasOwnProperty("search_results[0].price.raw")) {
+                var product1Price = document.createElement('p');
                 product1Price.innerHTML = data.search_results[0].price.raw;
                 product1Price.setAttribute("class", "card-content");
                 product1Card.appendChild(product1Price);
-            }
-            
-
-
+            } 
+            // else {
+            //     var product1NoPrice = document.createElement('p');
+            //     product1NoPrice.textContent = "Price Not Available"
+            //     product1NoPrice.setAttribute("class", "card-content");
+            //     product1Card.appendChild(product1NoPrice);
+            // }
 
             // Product 2 Card
             var product2Title = document.createElement('p');
@@ -153,14 +147,18 @@ var amazonGenerator = function() {
             };
             product2Card.appendChild(product2Image);
             
-            if (data.hasOwnProperty("price.raw")) {
-                var product2Price = document.createElement('div');
+            if (data.hasOwnProperty("search_results[1].price.raw")) {
+                var product2Price = document.createElement('p');
                 product2Price.innerHTML = data.search_results[1].price.raw;
                 product2Price.setAttribute("class", "card-content");
                 product2Card.appendChild(product2Price);
-            }
-
-
+            } 
+            // else {
+            //     var product2NoPrice = document.createElement('p');
+            //     product2NoPrice.textContent = "Price Not Available"
+            //     product2NoPrice.setAttribute("class", "card-content");
+            //     product2Card.appendChild(product2NoPrice);
+            // }
 
             // Product 3 Card
             var product3Title = document.createElement('p');
@@ -177,15 +175,19 @@ var amazonGenerator = function() {
             };
             product3Card.appendChild(product3Image);
             
-            if (data.hasOwnProperty("price.raw")) {
-                var product3Price = document.createElement('div');
+            if (data.hasOwnProperty("search_results[2].price.raw")) {
+                var product3Price = document.createElement('p');
                 product3Price.innerHTML = data.search_results[2].price.raw;
                 product3Price.setAttribute("class", "card-content");
                 product3Card.appendChild(product3Price);
-            }
-
+            } 
+            // else {
+            //     var product3NoPrice = document.createElement('p');
+            //     product3NoPrice.textContent = "Price Not Available"
+            //     product3NoPrice.setAttribute("class", "card-content");
+            //     product3Card.appendChild(product3NoPrice);
+            // }
         })
-
 };
 
 var displayInfo = function(event){
@@ -195,19 +197,13 @@ var displayInfo = function(event){
     var searchItem = document.createElement("h3")
     searchItem.classList = "title-3"
     searchItem.textContent = userInputEl.value;
-
     resultHeaderEl.appendChild(searchItem);
     
 }
 
+// commented out amazonGenerator until Thursday before Presentation 
 searchBtn.addEventListener('click', function(){
     displayInfo();
     getTicketMaster();
-    amazonGenerator();
+    // amazonGenerator();
 })
-
-
-// searchBtn.addEventListener("click", function() {
-//     displayInfo() 
-//     amazonGenerator()
-// });
