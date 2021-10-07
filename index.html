@@ -74,35 +74,38 @@
         </div>
 
     <!-- search bar-->
-        <div class="columns pt-2">
-            <div class="column is-half">
-                <div class="section">
-                    <div id="search-bar" class="field is-grouped">
-                        <div class="control">
-                            <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
-                        </div>
-                        <div class="control">
-                            <button id="search-button" class="button is-dark is-medium">Submit</button>
+        <div class="section">
+            <div class="columns is-vcentered">
+                <div class="column is-half">
+                    <div class="section">
+                        <div id="search-bar" class="field is-grouped">
+                            <div class="control">
+                                <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+                            </div>
+                            <div class="control">
+                                <button id="search-button" class="button is-dark is-medium">Search</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="column is-half">
-                <div class="card">
-                    <header class="card-header">
-                        <p class="card-header-title is-centered">
-                            Previous Searches
-                        </p>
-                    </header>
-                    <div class="card-content">
-                        <div class="content" id="previous-searches">
-                            <p>This is where the previous searches will go</p>
+                <div class="column is-half">
+                    <div class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                            <button class="button is-dark is-medium" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Previous Searches</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="previous-searches" role="menu">
+                            <div class="dropdown-content" id="previous-searches">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
     <!--searched artist name-->
         <div class="section pb-0 pt-0">
@@ -180,6 +183,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+      <script src="https://kit.fontawesome.com/8ab4620c2a.js" crossorigin="anonymous"></script>
       <script src="./assets/script.js"></script>
 
    </body>

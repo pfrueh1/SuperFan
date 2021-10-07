@@ -246,10 +246,9 @@ function getTicketMaster() {
 //
 // End of Amazon card java
 
+//display header with user input
 
-
-var displayInfo = function(event){
-    // event.preventDefault();
+var displayHeader = function(event){
     resultHeaderEl.textContent = ""
 
     var searchItem = document.createElement("h3")
@@ -260,10 +259,38 @@ var displayInfo = function(event){
     
 }
 
+//save previous searches to local storage
+var previousSearches = []
+var previousSearchesEl = document.querySelector("#previous-searches")
+
+var saveSearch = function() {
+    localStorage.setItem("previousSearches", JSON.stringify(previousSearches))
+};
+
+var previousSearch = function(previousSearch){
+
+    var previousSearchLine = document.createElement("div")
+    var previousSearchBtn = document.createElement("button");
+    previousSearchBtn.textContent = previousSearch;
+    previousSearchBtn.classList = "button is-medium is-fullwidth";
+    previousSearchBtn.setAttribute("searched-name", previousSearch); 
+    previousSearchBtn.setAttribute("type", "submit");
+
+    previousSearchLine.appendChild(previousSearchBtn)
+    previousSearchesEl.prepend(previousSearchBtn);
+
+    if (previousSearches.length = 5) {
+        localStorage.removeItem(previousSearches[0])
+    }
+}
+
+
 searchBtn.addEventListener('click', function(){
-    displayInfo();
+    displayHeader();
     getTicketMaster();
 //    amazonGenerator();
     wiki();
+    saveSearch();
+    previousSearch(userInputEl.value)
 })
 
