@@ -5,10 +5,10 @@ Created by Maria Sori, Robert Isaacs, Paul Frueh, and Daniel Urkov
 
 ## Links:
 ### Link to Deployed Application:
-https://pfrueh1.github.io/classproject
+https://pfrueh1.github.io/superfan
 
 ### Link to GitHub Repository:
-https://github.com/pfrueh1/classproject
+https://github.com/pfrueh1/superfan
 
 ## User Story:
 AS A fan, I WANT a website that shows events, merchandise, and top hits for my favorite artist, SO THAT I can be the ultimate super fan.
