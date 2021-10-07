@@ -46,7 +46,7 @@
                             Merch
                         </a>
                         <a class="navbar-item" href="#wiki-card">
-                            Wiki
+                            Top Hits
                         </a>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
 
     <!--hero banner-->
     <main>
-        <div class="hero is-medium is-warning has-background" id="hero-banner">
-            <img alt="crowd at concert" class="hero-background is-transparent" src="./assets/img/hero-background.jpg" />
+        <div class="hero is-link is-medium has-background" id="hero-banner">
+            <img alt="crowd at concert" class="hero-background is-transparent" src="./assets/img/hero-background2.jpeg" />
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">Welcome to SuperFan!</h1>
@@ -74,19 +74,47 @@
         </div>
 
     <!-- search bar-->
-        <div class="section">
-            <div id="search-bar" class="field is-grouped">
-                <div class="control">
-                    <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+        <div class="section p-0">
+            <div class="columns is-vcentered">
+                <div class="column is-half p-0">
+                    <div class="section">
+                        <div class="columns is-centered">
+                            <div id="search-bar" class="field is-centered">
+                                <div class="control">
+                                    <input id="user-input" class="input is-medium" type="text" placeHolder="Artist/performer/event">
+                                </div>
+                                <div class="control pt-3">
+                                    <button id="search-button" class="button is-dark is-medium">Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control">
+                            <button id="favorite-button" class="button is-dark is-medium">Save to Favorites</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="control">
-                    <button id="search-button" class="button is-dark is-medium">Submit</button>
+                <div class="column is-half p-0">
+                    <div class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                            <button class="button is-dark is-medium" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Favorites</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" role="menu">
+                            <div class="dropdown-content" id="favorites">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
     <!--searched artist name-->
-        <div class="section pb-0 pt-0">
+        <div class="section pb-0">
             <div class="content" id="result-header">
             </div>
         </div>
@@ -97,7 +125,7 @@
                 <div class="column is-full">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
+                            <p class="card-header-title is-centered">
                                 Tickets
                             </p>
                         </header>
@@ -115,7 +143,7 @@
                 <div class="column is-half">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
+                            <p class="card-header-title is-centered">
                                 Merch
                             </p>
                         </header>
@@ -135,13 +163,12 @@
                 <div class="column is-half">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
-                               Wiki
+                            <p class="card-header-title is-centered">
+                               Top Hits
                             </p>
                         </header>
                         <div class="card-content">
                             <div class="content" id="wiki-card">
-                            <p>This is where the Wiki info will go</p>
                             </div>
                         </div>
                     </div>
@@ -163,6 +190,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+      <script src="https://kit.fontawesome.com/8ab4620c2a.js" crossorigin="anonymous"></script>
       <script src="./assets/script.js"></script>
 
    </body>
