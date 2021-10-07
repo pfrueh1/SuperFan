@@ -26,4 +26,5 @@ AS A fan, I WANT a website that shows events, merchandise, and top hits for my f
 * Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
 
 ## Screenshot:
-<insert here>
+[![project-1-screenshot-1.png](https://i.postimg.cc/5NmHcx4T/project-1-screenshot-1.png)](https://postimg.cc/8jjkMgrm)
+[![project-1-screenshot-2.png](https://i.postimg.cc/dVthwzD1/project-1-screenshot-2.png)](https://postimg.cc/8j9pbXRQ)
