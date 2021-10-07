@@ -79,6 +79,7 @@ function getTicketMaster() {
                 function makeCard(i) {
                         let concertInfoEl = document.createElement("div");
                         ticketMasterCard.appendChild(concertInfoEl);
+                        concertInfoEl.setAttribute("class", "column card");
                         let concertTitleEl = document.createElement("h3");
                         concertTitleEl.textContent = data._embedded.events[i].name;
                         concertInfoEl.appendChild(concertTitleEl);
@@ -91,7 +92,10 @@ function getTicketMaster() {
                         let cityEl = document.createElement("p");
                         cityEl.textContent = data._embedded.events[i]._embedded.venues[0].city.name;
                         concertInfoEl.appendChild(cityEl);
-                        // let ticketEl = document.createElement()
+                        let ticketEl = document.createElement("a");
+                        ticketEl.textContent = "Click here for tickets!";
+                        ticketEl.setAttribute("href", data._embedded.events[i].url);
+                        concertInfoEl.appendChild(ticketEl);
                 };
                  console.log('data', data);
                 // check if there are more than 5 events
