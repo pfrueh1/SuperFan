@@ -61,8 +61,8 @@
 
     <!--hero banner-->
     <main>
-        <div class="hero is-medium is-warning has-background" id="hero-banner">
-            <img alt="crowd at concert" class="hero-background is-transparent" src="./assets/img/hero-background.jpg" />
+        <div class="hero is-link is-medium has-background" id="hero-banner">
+            <img alt="crowd at concert" class="hero-background is-transparent" src="./assets/img/hero-background2.jpeg" />
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">Welcome to SuperFan!</h1>
@@ -74,7 +74,7 @@
         </div>
 
     <!-- search bar-->
-        <div class="section">
+        <div class="section p-0">
             <div class="columns is-vcentered">
                 <div class="column is-half">
                     <div class="section">
@@ -85,6 +85,9 @@
                             <div class="control">
                                 <button id="search-button" class="button is-dark is-medium">Search</button>
                             </div>
+                            <div class="control">
+                                <button id="favorite-button" class="button is-dark is-medium">Save to Favorites</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -92,14 +95,14 @@
                     <div class="dropdown is-hoverable">
                         <div class="dropdown-trigger">
                             <button class="button is-dark is-medium" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <span>Previous Searches</span>
+                                <span>Favorites</span>
                                 <span class="icon is-small">
                                     <i class="fas fa-angle-down" aria-hidden="true"></i>
                                 </span>
                             </button>
                         </div>
-                        <div class="dropdown-menu" id="previous-searches" role="menu">
-                            <div class="dropdown-content" id="previous-searches">
+                        <div class="dropdown-menu" role="menu">
+                            <div class="dropdown-content" id="favorites">
                             </div>
                         </div>
                     </div>

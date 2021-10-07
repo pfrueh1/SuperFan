@@ -260,37 +260,48 @@ var displayHeader = function(event){
 }
 
 //save previous searches to local storage
-var previousSearches = []
-var previousSearchesEl = document.querySelector("#previous-searches")
+var favoritesArray = []                                                           
+var favoritesEl = document.querySelector("#favorites")
+var favoriteBtn = document.querySelector("#favorite-button")
 
 var saveSearch = function() {
-    localStorage.setItem("previousSearches", JSON.stringify(previousSearches))
+    localStorage.setItem("favoritesArray", JSON.stringify(favoritesArray))
 };
 
-var previousSearch = function(previousSearch){
+var favoriteAdd = function(favoriteAdd){
 
-    var previousSearchLine = document.createElement("div")
-    var previousSearchBtn = document.createElement("button");
-    previousSearchBtn.textContent = previousSearch;
-    previousSearchBtn.classList = "button is-medium is-fullwidth";
-    previousSearchBtn.setAttribute("searched-name", previousSearch); 
-    previousSearchBtn.setAttribute("type", "submit");
+    var favoriteLine = document.createElement("div")
+    var favoriteLineBtn = document.createElement("button");
+    favoriteLineBtn.textContent = userInputEl.value;
+    favoriteLineBtn.classList = "button is-medium is-fullwidth";
+    favoriteLineBtn.setAttribute("favorite-item", favoriteAdd); 
+    favoriteLineBtn.setAttribute("type", "submit");
 
-    previousSearchLine.appendChild(previousSearchBtn)
-    previousSearchesEl.prepend(previousSearchBtn);
-
-    if (previousSearches.length = 5) {
-        localStorage.removeItem(previousSearches[0])
+    favoriteLine.appendChild(favoriteLineBtn)
+    favoritesEl.prepend(favoriteLine);
     }
-}
 
+//var previousSearchHandler = function(event) {
+//    var previousSearchItem = event.target.getAttribute("searched-name")
+//    if (previousSearchItem) {
+//        displayHeader(previousSearchItem);
+//        getTicketMaster(previousSearchItem);
+//    //    amazonGenerator(previousSearchItem);
+//        wiki(previousSearchItem);
+//    }
+//}
 
 searchBtn.addEventListener('click', function(){
     displayHeader();
     getTicketMaster();
 //    amazonGenerator();
     wiki();
-    saveSearch();
-    previousSearch(userInputEl.value)
 })
 
+favoriteBtn.addEventListener('click', function(){
+    saveSearch();
+    favoriteAdd();
+
+})
+
+//previousSearchesEl.addEventListener("click", previousSearchHandler)
