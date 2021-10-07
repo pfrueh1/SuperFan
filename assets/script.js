@@ -259,7 +259,7 @@ var displayHeader = function(event){
     
 }
 
-//save previous searches to local storage
+//save favorites to local storage and to drop down
 var favoritesArray = []                                                           
 var favoritesEl = document.querySelector("#favorites")
 var favoriteBtn = document.querySelector("#favorite-button")
@@ -281,16 +281,6 @@ var favoriteAdd = function(favoriteAdd){
     favoritesEl.prepend(favoriteLine);
     }
 
-//var previousSearchHandler = function(event) {
-//    var previousSearchItem = event.target.getAttribute("searched-name")
-//    if (previousSearchItem) {
-//        displayHeader(previousSearchItem);
-//        getTicketMaster(previousSearchItem);
-//    //    amazonGenerator(previousSearchItem);
-//        wiki(previousSearchItem);
-//    }
-//}
-
 searchBtn.addEventListener('click', function(){
     displayHeader();
     getTicketMaster();
@@ -301,7 +291,18 @@ searchBtn.addEventListener('click', function(){
 favoriteBtn.addEventListener('click', function(){
     saveSearch();
     favoriteAdd();
-
 })
 
-//previousSearchesEl.addEventListener("click", previousSearchHandler)
+
+//var favoriteSearchHandler = function(event) {
+//    event.preventDefault();
+//    var favoriteSearchItem = event.target.getAttribute("favorite-item")
+//    if (favoriteSearchItem) {
+//        displayHeader(favoriteSearchItem);
+//        getTicketMaster(favoriteSearchItem);
+//    //    amazonGenerator(previousSearchItem);
+//        wiki(favoriteSearchItem);
+//    }
+//}
+//
+//favoritesEl.addEventListener("click", favoriteSearchHandler)
