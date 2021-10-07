@@ -1,3 +1,59 @@
+//Start Wiki-card Javascript
+var wikipediaCardEl = document.querySelector("#wiki-card");
+
+//Button click event
+
+// var button = document.querySelector(".button");
+var wiki = function(){
+    wikipediaCardEl.innerHTML = "";
+    //Create object for user input
+    var inputValue = document.querySelector("#user-input");
+    //Create a new object to interact with the server
+    var xhr = new XMLHttpRequest();
+
+    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&hits";
+
+    //Dynamically create elements
+    
+
+
+    // Provide 3 arguments (GET/POST, The URL, Async True/False)
+    xhr.open('GET', url, true);
+
+    // Once request has loaded...
+    xhr.onload = function() {
+        // Parse the request into JSON
+        var data = JSON.parse(this.response);
+
+        // Log the data object
+        console.log(data);
+
+        // Log the page objects
+        console.log(data.query.pages)
+
+        // Loop through the data object
+        // Pulling out the titles of each page
+        for (var i in data.query.pages) {
+            console.log(data.query.pages[i].title);
+            var songTitles = data.query.pages[i].title;
+            //create container for page
+             var pageEl = document.createElement("div");
+             pageEl.classList = "list-item flex-row justify-space-between align-center"
+             //create a span element to hold title
+             var textEl = document.createElement("span");
+             textEl.textContent = songTitles;
+             //append to container
+            pageEl.appendChild(textEl);
+             //append container to DOM
+             wikipediaCardEl.appendChild(pageEl);
+        }
+       }
+    // Send request to the server asynchronously
+    xhr.send();
+}
+
+//End Wiki-card Javascript
+  
 let searchBtn = document.querySelector('#search-button');
 let ticketMasterCard = document.querySelector('#ticketmaster-card');
 
@@ -41,7 +97,7 @@ function getTicketMaster() {
                 // check if there are more than 5 events
                 if (!data.hasOwnProperty("_embedded")) {
                     // if no upcoming events, inform user
-                    ticketMasterCard.textContent = "No upcoming shows for selected artist"
+                    ticketMasterCard.textContent = "No upcomming shows for selected artist"
                 }else if (data._embedded.events.length <= 5) {
                     //if less than 5 events, generate a card for each event
                     for (let i = 0; i < data._embedded.events.length; i++){
@@ -104,8 +160,17 @@ var amazonGenerator = function() {
             // clears out html from all "amazon" classes - divs with each card
             $(".amazon").html("")
 
+            
+
+            // Header for Amazon Section
+            // var amazonHeader = document.createElement('h2')
+            // amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
+            // amazonCard.appendChild(amazonHeader);
+
+
+
             // Product 1 Card
-            var product1Title = document.createElement('p');
+            var product1Title = document.createElement('div');
             product1Title.innerHTML = data.search_results[0].title;
             product1Title.setAttribute("class", "card-header");
             product1Card.appendChild(product1Title);
@@ -119,18 +184,15 @@ var amazonGenerator = function() {
             };
             product1Card.appendChild(product1Image);
 
-            if (data.hasOwnProperty("search_results[0].price.raw")) {
-                var product1Price = document.createElement('p');
+            if (data.hasOwnProperty("price.raw")) {
+                var product1Price = document.createElement('div');
                 product1Price.innerHTML = data.search_results[0].price.raw;
                 product1Price.setAttribute("class", "card-content");
                 product1Card.appendChild(product1Price);
-            } 
-            // else {
-            //     var product1NoPrice = document.createElement('p');
-            //     product1NoPrice.textContent = "Price Not Available"
-            //     product1NoPrice.setAttribute("class", "card-content");
-            //     product1Card.appendChild(product1NoPrice);
-            // }
+            }
+            
+
+
 
             // Product 2 Card
             var product2Title = document.createElement('p');
@@ -147,18 +209,14 @@ var amazonGenerator = function() {
             };
             product2Card.appendChild(product2Image);
             
-            if (data.hasOwnProperty("search_results[1].price.raw")) {
-                var product2Price = document.createElement('p');
+            if (data.hasOwnProperty("price.raw")) {
+                var product2Price = document.createElement('div');
                 product2Price.innerHTML = data.search_results[1].price.raw;
                 product2Price.setAttribute("class", "card-content");
                 product2Card.appendChild(product2Price);
-            } 
-            // else {
-            //     var product2NoPrice = document.createElement('p');
-            //     product2NoPrice.textContent = "Price Not Available"
-            //     product2NoPrice.setAttribute("class", "card-content");
-            //     product2Card.appendChild(product2NoPrice);
-            // }
+            }
+
+
 
             // Product 3 Card
             var product3Title = document.createElement('p');
@@ -175,19 +233,15 @@ var amazonGenerator = function() {
             };
             product3Card.appendChild(product3Image);
             
-            if (data.hasOwnProperty("search_results[2].price.raw")) {
-                var product3Price = document.createElement('p');
+            if (data.hasOwnProperty("price.raw")) {
+                var product3Price = document.createElement('div');
                 product3Price.innerHTML = data.search_results[2].price.raw;
                 product3Price.setAttribute("class", "card-content");
                 product3Card.appendChild(product3Price);
-            } 
-            // else {
-            //     var product3NoPrice = document.createElement('p');
-            //     product3NoPrice.textContent = "Price Not Available"
-            //     product3NoPrice.setAttribute("class", "card-content");
-            //     product3Card.appendChild(product3NoPrice);
-            // }
+            }
+
         })
+
 };
 
 var displayInfo = function(event){
@@ -197,13 +251,20 @@ var displayInfo = function(event){
     var searchItem = document.createElement("h3")
     searchItem.classList = "title-3"
     searchItem.textContent = userInputEl.value;
+
     resultHeaderEl.appendChild(searchItem);
     
 }
 
-// commented out amazonGenerator until Thursday before Presentation 
 searchBtn.addEventListener('click', function(){
     displayInfo();
     getTicketMaster();
-    // amazonGenerator();
+    amazonGenerator();
+    wiki();
 })
+
+
+// searchBtn.addEventListener("click", function() {
+//     displayInfo() 
+//     amazonGenerator()
+// });
