@@ -1,66 +1,41 @@
-//Start Wiki-card Javascript
-var wikipediaCardEl = document.querySelector("#wiki-card");
-
-//Button click event
-
-// var button = document.querySelector(".button");
-var wiki = function(){
-    wikipediaCardEl.innerHTML = "";
-    //Create object for user input
-    var inputValue = document.querySelector("#user-input");
-    //Create a new object to interact with the server
-    var xhr = new XMLHttpRequest();
-
-    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&hits";
-
-    //Dynamically create elements
-    
-
-
-    // Provide 3 arguments (GET/POST, The URL, Async True/False)
-    xhr.open('GET', url, true);
-
-    // Once request has loaded...
-    xhr.onload = function() {
-        // Parse the request into JSON
-        var data = JSON.parse(this.response);
-
-        // Log the data object
-        console.log(data);
-
-        // Log the page objects
-        console.log(data.query.pages)
-
-        // Loop through the data object
-        // Pulling out the titles of each page
-        for (var i in data.query.pages) {
-            console.log(data.query.pages[i].title);
-            var songTitles = data.query.pages[i].title;
-            //create container for page
-             var pageEl = document.createElement("div");
-             pageEl.classList = "list-item flex-row justify-space-between align-center"
-             //create a span element to hold title
-             var textEl = document.createElement("span");
-             textEl.textContent = songTitles;
-             //append to container
-            pageEl.appendChild(textEl);
-             //append container to DOM
-             wikipediaCardEl.appendChild(pageEl);
-        }
-       }
-    // Send request to the server asynchronously
-    xhr.send();
-}
-
-//End Wiki-card Javascript
-  
+//GLOBAL VARIABLES
 let searchBtn = document.querySelector('#search-button');
+let userInputEl = document.querySelector("#user-input")
+let resultHeaderEl = document.querySelector("#result-header")
+
+// ticketmaster variables
 let ticketMasterCard = document.querySelector('#ticketmaster-card');
 
-// search button element section
-userInputEl = document.querySelector("#user-input")
-resultHeaderEl = document.querySelector("#result-header")
+// Amazon Card variables
+var product1Card = document.querySelector("#product-1");
+var product2Card = document.querySelector("#product-2");
+var product3Card = document.querySelector("#product-3");
+var amazonCard = document.querySelector("#amazon-card")
 
+// wiki variables
+var wikipediaCardEl = document.querySelector("#wiki-card");
+
+//favorites variables
+var favoritesArray = []                                                           
+var favoritesEl = document.querySelector("#favorites")
+var favoriteBtn = document.querySelector("#favorite-button") 
+
+
+//HEADER DISPLAY 
+//display header with user input
+var displayHeader = function(event){
+    resultHeaderEl.textContent = ""
+
+    var searchItem = document.createElement("h3")
+    searchItem.classList = "title-3"
+    searchItem.textContent = userInputEl.value;
+
+    resultHeaderEl.appendChild(searchItem);
+    
+}
+
+ 
+//START TICKETMASTER CARD JAVASCRIPT
 
 // function for populating the concerts box
 function getTicketMaster() {
@@ -79,6 +54,7 @@ function getTicketMaster() {
                 function makeCard(i) {
                         let concertInfoEl = document.createElement("div");
                         ticketMasterCard.appendChild(concertInfoEl);
+                        concertInfoEl.setAttribute("class", "column card");
                         let concertTitleEl = document.createElement("h3");
                         concertTitleEl.textContent = data._embedded.events[i].name;
                         concertInfoEl.appendChild(concertTitleEl);
@@ -91,9 +67,11 @@ function getTicketMaster() {
                         let cityEl = document.createElement("p");
                         cityEl.textContent = data._embedded.events[i]._embedded.venues[0].city.name;
                         concertInfoEl.appendChild(cityEl);
-                        // let ticketEl = document.createElement()
+                        let ticketEl = document.createElement("a");
+                        ticketEl.textContent = "Click here for tickets!";
+                        ticketEl.setAttribute("href", data._embedded.events[i].url);
+                        concertInfoEl.appendChild(ticketEl);
                 };
-                 console.log('data', data);
                 // check if there are more than 5 events
                 if (!data.hasOwnProperty("_embedded")) {
                     // if no upcoming events, inform user
@@ -108,35 +86,16 @@ function getTicketMaster() {
                     for (let i = 0; i < 5; i++){
                         makeCard(i);                        
                     }
-                }
-                console.log("input", userInput)
-               
+                }               
             })
         }
     });
 };
+//END TICKETMASTER CARD JAVASCRIPT
 
 
 
-
-    
-
-
-
-
-
-
-
-
-
-
-
-// Amazon Card Section
-var product1Card = document.querySelector("#product-1");
-var product2Card = document.querySelector("#product-2");
-var product3Card = document.querySelector("#product-3");
-var amazonCard = document.querySelector("#amazon-card")
-
+//START AMAZON CARD JAVASCRIPT
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
 
@@ -152,22 +111,9 @@ var amazonGenerator = function() {
         return response.json();
       })
         .then(function(data) {
-            //console log to test getting correct data
-            console.log(data)
-            console.log(data.search_results[0].title)
-            console.log(data.search_results[0].image)
-            
+     
             // clears out html from all "amazon" classes - divs with each card
             $(".amazon").html("")
-
-            
-
-            // Header for Amazon Section
-            // var amazonHeader = document.createElement('h2')
-            // amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
-            // amazonCard.appendChild(amazonHeader);
-
-
 
             // Product 1 Card
             var product1Title = document.createElement('div');
@@ -243,28 +189,117 @@ var amazonGenerator = function() {
         })
 
 };
+//END AMAZON CARD JAVASCRIPT
 
-var displayInfo = function(event){
-    // event.preventDefault();
-    resultHeaderEl.textContent = ""
 
-    var searchItem = document.createElement("h3")
-    searchItem.classList = "title-3"
-    searchItem.textContent = userInputEl.value;
 
-    resultHeaderEl.appendChild(searchItem);
+
+//START WIKI CARD JAVASCRIPT
+
+var wiki = function(){
+    wikipediaCardEl.innerHTML = "";
+    //Create object for user input
+    var inputValue = document.querySelector("#user-input");
+    //Create a new object to interact with the server
+    var xhr = new XMLHttpRequest();
+
+    var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=" + inputValue.value + "&top&hits";
+
+    //Dynamically create elements
     
-}
 
+
+    // Provide 3 arguments (GET/POST, The URL, Async True/False)
+    xhr.open('GET', url, true);
+
+    // Once request has loaded...
+    xhr.onload = function() {
+        // Parse the request into JSON
+        var data = JSON.parse(this.response);
+
+        // Loop through the data object
+        // Pulling out the titles of each page
+        for (var i in data.query.pages) {
+            var songTitles = data.query.pages[i].title;
+            //create container for page
+             var pageEl = document.createElement("div");
+             pageEl.classList = "list-item flex-row justify-space-between align-center"
+             //create a span element to hold title
+             var textEl = document.createElement("span");
+             textEl.textContent = songTitles;
+             //append to container
+            pageEl.appendChild(textEl);
+             //append container to DOM
+             wikipediaCardEl.appendChild(pageEl);
+        }
+       }
+    // Send request to the server asynchronously
+    xhr.send();
+}
+//END WIKI CARD JAVASCRIPT
+
+
+
+//START FAVORITES LIST JAVASCRIPT
+//adding favorite to favorites list
+var favoriteAdd = function(input){
+    var favoriteLine = document.createElement("div")
+    var favoriteLineBtn = document.createElement("button");
+    favoriteLineBtn.textContent = input;
+    favoriteLineBtn.classList = "button is-medium is-fullwidth";
+    favoriteLineBtn.setAttribute("favorite-item", input); 
+    favoriteLineBtn.setAttribute("type", "submit");
+    favoriteLine.appendChild(favoriteLineBtn)
+    favoritesEl.prepend(favoriteLine);
+
+    let userInputText = userInputEl.value;
+    favoritesArray.push(userInputText);
+    }
+
+//loading previously saved favorites
+function loadFavorites() {
+    var parsedFavorites = JSON.parse( localStorage.getItem('favoritesArray') );
+    if (parsedFavorites) {
+        for (let i = 0; i < parsedFavorites.length; i++){
+            favoriteAdd(parsedFavorites[i]);
+        }
+    }
+
+};
+
+loadFavorites();
+
+// search for item on favorites list
+var favoriteSearchHandler = function(event) {
+    var favoriteSearchItem = event.target.getAttribute("favorite-item")
+    userInputEl.value = favoriteSearchItem
+    displayHeader();
+    getTicketMaster();
+    amazonGenerator();
+    wiki();    
+    userInputEl.value = "";
+}
+//END FAVORITES LIST JAVASCRIPT
+
+
+
+//EVENT LISTENERS
+//search user input
 searchBtn.addEventListener('click', function(){
-    displayInfo();
+    displayHeader();
     getTicketMaster();
     amazonGenerator();
     wiki();
 })
 
 
-// searchBtn.addEventListener("click", function() {
-//     displayInfo() 
-//     amazonGenerator()
-// });
+// add items to favorites list
+favoriteBtn.addEventListener('click', function(){
+    favoriteAdd(userInputEl.value);
+    amazonGenerator();
+    userInputEl.value = "";
+})
+
+
+// search item on favorites list
+favoritesEl.addEventListener("click", favoriteSearchHandler);
