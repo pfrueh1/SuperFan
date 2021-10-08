@@ -1,9 +1,39 @@
-//Start Wiki-card Javascript
+//declaration of variables
+let searchBtn = document.querySelector('#search-button');
+let userInputEl = document.querySelector("#user-input")
+let resultHeaderEl = document.querySelector("#result-header")
+
+// ticketmaster variables
+let ticketMasterCard = document.querySelector('#ticketmaster-card');
+
+// Amazon Card variables
+var product1Card = document.querySelector("#product-1");
+var product2Card = document.querySelector("#product-2");
+var product3Card = document.querySelector("#product-3");
+var amazonCard = document.querySelector("#amazon-card")
+
+// wiki variables
 var wikipediaCardEl = document.querySelector("#wiki-card");
 
-//Button click event
+//favorites variables
+var favoritesArray = []                                                           
+var favoritesEl = document.querySelector("#favorites")
+var favoriteBtn = document.querySelector("#favorite-button") 
 
-// var button = document.querySelector(".button");
+//display header with user input
+var displayHeader = function(event){
+    resultHeaderEl.textContent = ""
+
+    var searchItem = document.createElement("h3")
+    searchItem.classList = "title-3"
+    searchItem.textContent = userInputEl.value;
+
+    resultHeaderEl.appendChild(searchItem);
+    
+}
+
+//Start Wiki-card Javascript
+
 var wiki = function(){
     wikipediaCardEl.innerHTML = "";
     //Create object for user input
@@ -51,16 +81,10 @@ var wiki = function(){
     // Send request to the server asynchronously
     xhr.send();
 }
-
 //End Wiki-card Javascript
-  
-let searchBtn = document.querySelector('#search-button');
-let ticketMasterCard = document.querySelector('#ticketmaster-card');
 
-// search button element section
-userInputEl = document.querySelector("#user-input")
-resultHeaderEl = document.querySelector("#result-header")
-
+ 
+//Start Ticketmaster Javascript
 
 // function for populating the concerts box
 function getTicketMaster() {
@@ -119,28 +143,10 @@ function getTicketMaster() {
         }
     });
 };
+//End Ticketmaster Javascript
 
 
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-// Amazon Card Section
-var product1Card = document.querySelector("#product-1");
-var product2Card = document.querySelector("#product-2");
-var product3Card = document.querySelector("#product-3");
-var amazonCard = document.querySelector("#amazon-card")
-
+// Start Amazon Javascript
 // Amazon Generator Function to create Amazon Product Cards
 var amazonGenerator = function() {
 
@@ -163,15 +169,6 @@ var amazonGenerator = function() {
             
             // clears out html from all "amazon" classes - divs with each card
             $(".amazon").html("")
-
-            
-
-            // Header for Amazon Section
-            // var amazonHeader = document.createElement('h2')
-            // amazonHeader.innerHTML = "Here are Amazon items related to your Search Term. Click on a picture to purchase the item on Amazon.com!"
-            // amazonCard.appendChild(amazonHeader);
-
-
 
             // Product 1 Card
             var product1Title = document.createElement('div');
@@ -247,33 +244,12 @@ var amazonGenerator = function() {
         })
 
 };
-//
 // End of Amazon card java
 
-//display header with user input
 
-var displayHeader = function(event){
-    resultHeaderEl.textContent = ""
-
-    var searchItem = document.createElement("h3")
-    searchItem.classList = "title-3"
-    searchItem.textContent = userInputEl.value;
-
-    resultHeaderEl.appendChild(searchItem);
-    
-}
-
-//save favorites to local storage and to drop down
-var favoritesArray = []                                                           
-var favoritesEl = document.querySelector("#favorites")
-var favoriteBtn = document.querySelector("#favorite-button") 
-
-var saveSearch = function() {
-    localStorage.setItem("favoritesArray", JSON.stringify(favoritesArray))
-};
-
+//Start Favorites List Javascript
+//adding favorite to favorites list
 var favoriteAdd = function(input){
-
     var favoriteLine = document.createElement("div")
     var favoriteLineBtn = document.createElement("button");
     favoriteLineBtn.textContent = input;
@@ -287,6 +263,7 @@ var favoriteAdd = function(input){
     favoritesArray.push(userInputText);
     }
 
+//loading previously saved favorites
 function loadFavorites() {
     var parsedFavorites = JSON.parse( localStorage.getItem('favoritesArray') );
     if (parsedFavorites) {
@@ -298,21 +275,6 @@ function loadFavorites() {
 };
 
 loadFavorites();
-searchBtn.addEventListener('click', function(){
-    displayHeader();
-    getTicketMaster();
-    amazonGenerator();
-    wiki();
-})
-
-
-// add items to favorites list
-favoriteBtn.addEventListener('click', function(){
-    favoriteAdd(userInputEl.value);
-    saveSearch();
-    amazonGenerator();
-    userInputEl.value = "";
-})
 
 // search for item on favorites list
 var favoriteSearchHandler = function(event) {
@@ -324,6 +286,27 @@ var favoriteSearchHandler = function(event) {
     wiki();    
     userInputEl.value = "";
 }
+//End Favorites List Javascript
 
 
+
+//event listeners
+//search user input
+searchBtn.addEventListener('click', function(){
+    displayHeader();
+    getTicketMaster();
+    amazonGenerator();
+    wiki();
+})
+
+
+// add items to favorites list
+favoriteBtn.addEventListener('click', function(){
+    favoriteAdd(userInputEl.value);
+    amazonGenerator();
+    userInputEl.value = "";
+})
+
+
+// search item on favorites list
 favoritesEl.addEventListener("click", favoriteSearchHandler);
