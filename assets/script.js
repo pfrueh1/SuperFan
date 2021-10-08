@@ -72,7 +72,6 @@ function getTicketMaster() {
                         ticketEl.setAttribute("href", data._embedded.events[i].url);
                         concertInfoEl.appendChild(ticketEl);
                 };
-                 console.log('data', data);
                 // check if there are more than 5 events
                 if (!data.hasOwnProperty("_embedded")) {
                     // if no upcoming events, inform user
@@ -87,9 +86,7 @@ function getTicketMaster() {
                     for (let i = 0; i < 5; i++){
                         makeCard(i);                        
                     }
-                }
-                console.log("input", userInput)
-               
+                }               
             })
         }
     });
@@ -114,11 +111,7 @@ var amazonGenerator = function() {
         return response.json();
       })
         .then(function(data) {
-            //console log to test getting correct data
-            console.log(data)
-            console.log(data.search_results[0].title)
-            console.log(data.search_results[0].image)
-            
+     
             // clears out html from all "amazon" classes - divs with each card
             $(".amazon").html("")
 
@@ -224,16 +217,9 @@ var wiki = function(){
         // Parse the request into JSON
         var data = JSON.parse(this.response);
 
-        // Log the data object
-        console.log(data);
-
-        // Log the page objects
-        console.log(data.query.pages)
-
         // Loop through the data object
         // Pulling out the titles of each page
         for (var i in data.query.pages) {
-            console.log(data.query.pages[i].title);
             var songTitles = data.query.pages[i].title;
             //create container for page
              var pageEl = document.createElement("div");
