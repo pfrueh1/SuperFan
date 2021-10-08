@@ -1,4 +1,4 @@
-//declaration of variables
+//declaration of global variables
 let searchBtn = document.querySelector('#search-button');
 let userInputEl = document.querySelector("#user-input")
 let resultHeaderEl = document.querySelector("#result-header")
@@ -19,6 +19,7 @@ var wikipediaCardEl = document.querySelector("#wiki-card");
 var favoritesArray = []                                                           
 var favoritesEl = document.querySelector("#favorites")
 var favoriteBtn = document.querySelector("#favorite-button") 
+
 
 //display header with user input
 var displayHeader = function(event){
