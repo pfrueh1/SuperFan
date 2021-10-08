@@ -272,19 +272,32 @@ var saveSearch = function() {
     localStorage.setItem("favoritesArray", JSON.stringify(favoritesArray))
 };
 
-var favoriteAdd = function(favoriteAdd){
+var favoriteAdd = function(input){
 
     var favoriteLine = document.createElement("div")
     var favoriteLineBtn = document.createElement("button");
-    favoriteLineBtn.textContent = userInputEl.value;
+    favoriteLineBtn.textContent = input;
     favoriteLineBtn.classList = "button is-medium is-fullwidth";
-    favoriteLineBtn.setAttribute("favorite-item", userInputEl.value); 
+    favoriteLineBtn.setAttribute("favorite-item", input); 
     favoriteLineBtn.setAttribute("type", "submit");
-
     favoriteLine.appendChild(favoriteLineBtn)
     favoritesEl.prepend(favoriteLine);
+
+    let userInputText = userInputEl.value;
+    favoritesArray.push(userInputText);
     }
 
+function loadFavorites() {
+    var parsedFavorites = JSON.parse( localStorage.getItem('favoritesArray') );
+    if (parsedFavorites) {
+        for (let i = 0; i < parsedFavorites.length; i++){
+            favoriteAdd(parsedFavorites[i]);
+        }
+    }
+
+};
+
+loadFavorites();
 searchBtn.addEventListener('click', function(){
     displayHeader();
     getTicketMaster();
@@ -295,8 +308,9 @@ searchBtn.addEventListener('click', function(){
 
 // add items to favorites list
 favoriteBtn.addEventListener('click', function(){
+    favoriteAdd(userInputEl.value);
     saveSearch();
-    favoriteAdd();
+    amazonGenerator();
     userInputEl.value = "";
 })
 
